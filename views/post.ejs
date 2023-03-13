@@ -1,0 +1,11 @@
+<%- include('partials/header'); -%>
+
+<div class="container my-3">
+      <h2> <%= post.title %> </h2>
+       <%= post.post %> 
+       <a href="/user/<%= post.name %>"> <i><h5>by <%= post.name %></h5></i> </a>
+        
+
+</div>
+
+<%- include('partials/footer'); -%>

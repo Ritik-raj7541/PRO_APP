@@ -1,0 +1,42 @@
+<%- include('partials/header'); -%>
+
+welcome <%= user %>
+
+<div class="container">
+  <!-- there will be a post -->
+  <!-- post ends here -->
+  <% for(var i=postMaterial.length-1;i>=0;--i){ %>
+
+  <h3>
+    <a href="/post/<%= postMaterial[i]._id %>"><%= postMaterial[i].title %></a>
+  </h3>
+  <% var a = postMaterial[i].post %> <%= a.substring(0,100) %> ...
+  <a href="/user/<%= postMaterial[i].name %>">
+    <h5><i>by <%= postMaterial[i].name %> </i></h5>
+  </a>
+  <form action="/main" method="post">
+    <button style="border: none;" type="submit" name="liked" value=<%=postMaterial[i]._id %>><i class="fa-solid fa-heart"></i></button>
+     <%= postMaterial[i].like %>
+     <button style="border: none;" type="submit" name="disliked" value=<%=postMaterial[i]._id %>><i class="fa-sharp fa-solid fa-heart-crack"></i></button>
+     <%= postMaterial[i].dislike %> 
+    <a href="/comment/<%= postMaterial[i]._id %>"><i class="fa-solid fa-comment mx-2"></i></a>
+  </form>
+  
+  
+  <hr />
+  <% } %>
+</div>
+<!-- compose button -->
+<div class="container my-3">
+  <a href="/compose">
+    <button class="btn btn-dark">Add your post</button>
+  </a>
+</div>
+
+<div class="container">
+  <form action="/logout" method="post">
+    <button class="btn btn-dark">Log Out</button>
+  </form>
+</div>
+
+<%- include('partials/footer'); -%>

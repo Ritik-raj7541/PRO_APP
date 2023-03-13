@@ -1,0 +1,75 @@
+   User.find({id:curUserId, reaction:{postId:l, lord:-1}}, function(err, docs){
+    if(err){
+      console.log(err) ;
+    }else{
+      if(docs){
+        Userpost.findByIdAndUpdate(l,{$inc:{like:1},$inc:{dislike:-1}}, function(err, success){
+          if(err){
+            console.log(err) ;
+          }else{
+            User.findByIdAndUpdate(curUserId, {$push:{reaction:{postId:req.body.liked, lord:1}}}, function(err, success){
+              if(err){
+                console.log(err) ;
+              }else{
+                console.log(success) ;
+              }
+            }) ;
+            console.log(success) ;
+          }
+        })
+      }else{
+        User.findByIdAndUpdate(curUserId, {$push:{reaction:{postId:req.body.liked, lord:1}}}, function(err, success){
+          if(err){
+            console.log(err) ;
+          }else{
+            Userpost.findByIdAndUpdate(l,{$inc:{like:1},$inc:{dislike:-1}}, function(err, success){
+              if(!err){
+                console.log(success) ;
+              }
+            })
+            console.log(success) ;
+          }
+        }) ; //adding if not present
+      }
+    }
+   }) ;
+  
+
+//    --------------------------------------
+
+const l = req.body.disliked ;
+User.find({id:curUserId, reaction:{postId:l, lord:1}}, function(err, docs){
+ if(err){
+   console.log(err) ;
+ }else{
+   if(docs){
+     Userpost.findByIdAndUpdate(l,{$inc:{like:-1},$inc:{dislike:1}}, function(err, success){
+       if(err){
+         console.log(err) ;
+       }else{
+         console.log(success) ;
+         User.findByIdAndUpdate(curUserId, {$push:{reaction:{postId:req.body.disliked, lord:-1}}}, function(err, success){
+           if(err){
+             console.log(err) ;
+           }else{
+             console.log(success) ;
+           }
+         }) ; 
+       }
+     })
+   }else{
+     User.findByIdAndUpdate(curUserId, {$push:{reaction:{postId:req.body.disliked, lord:-1}}}, function(err, success){
+       if(err){
+         console.log(err) ;
+       }else{
+         Userpost.findByIdAndUpdate(l,{$inc:{like:-1},$inc:{dislike:1}}, function(err, success){
+           if(!err){
+             console.log(success) ;
+           }
+         })
+         console.log(success) ;
+       }
+     }) ; 
+   }
+ }
+}) ;

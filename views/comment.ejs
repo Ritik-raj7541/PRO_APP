@@ -1,0 +1,22 @@
+<%- include('partials/header'); -%>
+
+<div class="container">
+      <h3>Welcome to Comment Section</h3>
+      <form action="/comment/<%=id%>" method="post">
+            <div class="mb-3">
+                  <label for="exampleFormControlTextarea1" class="form-label">Enter Your Comment</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="comment"></textarea>
+                </div>
+                <div class="container mx-2 my-3">
+                  <% for(var i=0;i<commentPost.length;++i){ %>
+                     <h4><i> by <a href="/user/<%= commentPost[i].userName %>"> <%= commentPost[i].userName %> </a> </i></h4>   
+                     <h4><i> <%= commentPost[i].essay %> </i></h4>  
+                     <hr /> 
+                      <% } %>
+                </div>
+                
+                <button class="btn btn-dark"> <strong>+</strong> </button>
+      </form>
+</div>
+
+<%- include('partials/footer'); -%>

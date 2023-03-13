@@ -1,0 +1,12 @@
+hr
+{
+  /* margin-left: 40px auto 40px auto ; */
+  width: 5%;
+  border:10px dotted rgb(51, 49, 49) ;
+  border-bottom: none ;
+  text-align: center;
+}
+a{
+  text-decoration: none;
+  color: black;
+}

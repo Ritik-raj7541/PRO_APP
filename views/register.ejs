@@ -1,0 +1,75 @@
+<%- include('partials/header'); -%>
+
+<div class="container">
+  <h1>Register</h1>
+  <form action="/register" method="post">
+    <div class="mb-3 row">
+      <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+      <div class="col-sm-10">
+        <input
+          type="email"
+          class="form-control-plaintext"
+          id="staticEmail"
+          placeholder="enter your mail"
+          name="username"
+          required
+        />
+      </div>
+    </div>
+    <!-- password -->
+    <div class="mb-3 row">
+      <label for="inputPassword" class="col-sm-2 col-form-label"
+        >Password</label
+      >
+      <div class="col-sm-10">
+        <input
+          type="password"
+          class="form-control"
+          id="inputPassword"
+          name="password"
+        />
+      </div>
+    </div>
+    <!-- area1 -->
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label"
+        >Full Name</label
+      >
+      <textarea
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="1"
+        name="fullname"
+      ></textarea>
+    </div>
+    <!-- area2 -->
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label"
+        >Nick Name</label
+      >
+      <textarea
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="1"
+        name="nickname"
+      ></textarea>
+    </div>
+    <!-- area3 -->
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Bio</label>
+      <textarea
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="1"
+        name="bio"
+      ></textarea>
+    </div>
+
+   
+    <button type="submit" class="btn btn-primary">Register</button>
+    
+  </form>
+  or have an account <a href="/login"> <button class="btn btn-dark">Login</button> </a>
+</div>
+
+<%- include('partials/footer'); -%>
