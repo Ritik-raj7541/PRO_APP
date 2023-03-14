@@ -73,3 +73,6 @@ User.find({id:curUserId, reaction:{postId:l, lord:1}}, function(err, docs){
    }
  }
 }) ;
+
+
+

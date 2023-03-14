@@ -1,6 +1,8 @@
 <%- include('partials/header'); -%>
 
-welcome <%= user %>
+<p>
+  welcome <%= user %>
+</p>
 
 <div class="container">
   <!-- there will be a post -->
@@ -14,13 +16,20 @@ welcome <%= user %>
   <a href="/user/<%= postMaterial[i].name %>">
     <h5><i>by <%= postMaterial[i].name %> </i></h5>
   </a>
-  <form action="/main" method="post">
-    <button style="border: none;" type="submit" name="liked" value=<%=postMaterial[i]._id %>><i class="fa-solid fa-heart"></i></button>
-     <%= postMaterial[i].like %>
-     <button style="border: none;" type="submit" name="disliked" value=<%=postMaterial[i]._id %>><i class="fa-sharp fa-solid fa-heart-crack"></i></button>
-     <%= postMaterial[i].dislike %> 
+  <p>
+
+    <form action="/like" method="post">
+      <button style="border: none;" type="submit" name="liked" value=<%=postMaterial[i]._id %>><i class="fa-solid fa-heart"></i></button>
+       <%= postMaterial[i].like.length %>
+    </form>
+    <form action="/dislike" method="post">
+       <button style="border: none;" type="submit" name="disliked" value=<%=postMaterial[i]._id %>><i class="fa-sharp fa-solid fa-heart-crack"></i></button>
+       <%= postMaterial[i].dislike.length %> 
+    </form>
     <a href="/comment/<%= postMaterial[i]._id %>"><i class="fa-solid fa-comment mx-2"></i></a>
-  </form>
+
+  </p>
+  
   
   
   <hr />

@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const _ = require('lodash');
 
 const User = require('./modals/User') ;
-const Userpost = require('./modals/Post') ;
+const Post = require('./modals/Post') ;
 // const bcrypt = require('bcrypt');
 const session = require('express-session') ;
 const passport = require('passport') ;
@@ -65,7 +65,7 @@ app.get("/main", function (req, res) {
   if(req.isAuthenticated()){
     
     const curUser = req.user.nickname ;
-    Userpost.find({},function(err, foundPost){
+    Post.find({},function(err, foundPost){
       if(err){
         console.log(err) ;
       }else{
@@ -91,7 +91,7 @@ app.get("/compose", function (req, res) {
 app.get('/post/:postName', function(req, res){
   var id = req.params.postName ;
   
-   Userpost.findById(id, function (err, foundPost) {
+    Post.findById(id, function (err, foundPost) {
     if (err){
         console.log(err);
     }
@@ -116,7 +116,7 @@ app.get('/user/:userName', function(req, res){
 app.get('/comment/:commentId', function(req, res){
    console.log(req.params.commentId) ;
    currentPostid = req.params.commentId ;
-   Userpost.findById(currentPostid, function(err, foundPost){
+    Post.findById(currentPostid, function(err, foundPost){
     if(err){
       console.log(err) ;
     }else{
@@ -130,21 +130,78 @@ app.get('/comment/:commentId', function(req, res){
 //post request
 
 app.post("/main", function (req, res) {
-  // console.log(req.body.likeNumber) ;
-  // req.body.liked is and id of post
-  const curUserId = req.user.id ;
-  if(req.body.liked){
-   const l = req.body.liked ;
 
-  }
-  else if(req.body.disliked){
-
-  }else{
-    console.log('nothing') ;
-  }
-  console.log(req.user.reaction) ;
-  res.redirect('/main') ;
 });
+
+app.post('/like', function(req, res){
+   const curUserId = req.user.id ;
+   const curPostId = req.body.liked ;
+   console.log(curPostId) ;
+
+  Post.findById(curPostId, function(err, docs){
+    if(err){
+      console.log(err) ;
+    }
+    else{
+      if(docs){
+        if(docs.dislike.includes(curUserId)){
+         Post.findByIdAndUpdate(curPostId,{$pull:{dislike:curUserId}},{new:true}, function(err, result){
+           if(err){
+             console.log(err) ;
+           }else{
+             console.log('success') ;
+           }
+          }) ;
+        }
+        if( !docs.like.includes(curUserId) ){
+         Post.findByIdAndUpdate(curPostId,{$push:{like:curUserId}},{new:true}, function(err, result){
+           if(err){
+             console.log(err) ;
+           }else{
+             res.redirect('/main') ;
+           }
+          }) ;
+        }else{
+          res.redirect('/main') ;
+        }
+       }
+    }
+  })
+}) ;
+app.post('/dislike', function(req, res){
+   const curUserId = req.user.id ;
+   const curPostId = req.body.disliked ;
+   console.log(curPostId) ;
+
+  Post.findById(curPostId, function(err, docs){
+   if(err){
+    console.log(err) ;
+   }else{
+    if(docs){
+      if(docs.like.includes(curUserId)){
+        Post.findByIdAndUpdate(curPostId,{$pull:{like:curUserId}},{new:true}, function(err, result){
+          if(err){
+            console.log(err) ;
+          }else{
+            console.log('sucess') ;
+          }
+         }) ;
+      }
+      if(!docs.dislike.includes(curUserId)){
+        Post.findByIdAndUpdate(curPostId,{$push:{dislike:curUserId}},{new:true}, function(err, result){
+          if(err){
+            console.log(err) ;
+          }else{
+            res.redirect('/main') ;
+          }
+         }) ;
+      }else{
+        res.redirect('/main') ;
+      }
+    }
+   }  
+  })
+}) ;
 
 app.post("/login", function(req, res) {
   const user = new User({
@@ -183,7 +240,7 @@ app.post("/register", async function (req, res) {
 app.post("/compose", function (req, res) {
   const heading = req.body.heading;
   const content = req.body.content;
-  const newUser = new Userpost({
+  const newUser = new Post({
     title: heading,
     post: content,
     name: req.user.nickname 
@@ -203,7 +260,7 @@ app.post('/comment/:currentId', function(req, res){
     
     // console.log(currentPostid) ;
     // console.log(commentbyUser) ;
-    Userpost.findById(currentPostid, function(err, foundPost){
+     Post.findById(currentPostid, function(err, foundPost){
       if(err){
         console.log(err) ;
       }else{

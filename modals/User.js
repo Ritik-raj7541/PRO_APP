@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const passportLocalMongoose = require('passport-local-mongoose')
-
+const {Schema} = mongoose ;
 const userSchema = new mongoose.Schema({
       username:{
        type:String,
@@ -21,11 +21,7 @@ const userSchema = new mongoose.Schema({
       },
       bio:{ 
        type:String
-      },
-      reaction:[{
-        postId:String,
-        lord:Number
-      }]
+      }
     });
 
     userSchema.plugin(passportLocalMongoose) ;
