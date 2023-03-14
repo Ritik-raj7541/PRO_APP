@@ -85,7 +85,12 @@ app.get("/main", function (req, res) {
   
 });
 app.get("/compose", function (req, res) {
-  res.render("compose");
+  if(req.isAuthenticated()){
+    res.render("compose");
+  }else{
+    res.redirect('/login') ;
+  }
+  
 });
 
 app.get('/post/:postName', function(req, res){
