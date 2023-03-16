@@ -4,6 +4,16 @@
     <h4>Name </h4> <i><h5><%= user.fullname %></h5></i>
     <h4>Nick Name </h4> <i><h5><%= user.nickname %></h5></i>
     <h4>Bio </h4> <i><h5><%= user.bio %></h5></i> 
+    <h4>Total post <%= user.post.length%> </h4>
+     <h5>
+        <% for(var i=0;i<user.post.length;++i){ %>
+        <%= user.post[i] %>
+        <% } %>
+
+    </h5>
+    <form action="/" method="post">
+        <button class="btn btn-dark">Add Friend</button>
+    </form>
 </div>
 
 <%- include('partials/footer'); -%>

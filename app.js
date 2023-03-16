@@ -7,7 +7,6 @@ const User = require('./modals/User') ;
 const Post = require('./modals/Post') ;
 const session = require('express-session') ;
 const passport = require('passport') ;
-const passportLocalMongoose = require('passport-local-mongoose') ;
 
 const app = express();
 
@@ -94,13 +93,15 @@ app.get('/post/:postName', function(req, res){
   
 }) ;
 
-app.get('/user/:userName', function(req, res){
-   var searchedUser = req.params.userName ;
-   User.find({nickname:searchedUser}, function(err, foundUser){
+app.get('/user/:userId', function(req, res){
+   var searchedUser = req.params.userId ;
+   console.log(searchedUser) ;
+   User.findById(searchedUser, function(err, foundUser){
     if(err){
       console.log('err') ;
     }else{
-       res.render('user', {user:foundUser[0]}) ;
+      // console.log(foundUser) ;
+       res.render('user', {user:foundUser}) ;
     }
    }) ;
 }) ;
@@ -213,8 +214,6 @@ app.post("/login", function(req, res) {
 
 });
 app.post("/register", async function (req, res) {
-
-  console.log(req.body.email) ;
   User.register({username: req.body.username ,fullname:req.body.fullname ,nickname: req.body.nickname , bio: req.body.bio}, req.body.password, function(err, user){
     if(err){
       console.log('we have a error') ;
@@ -232,19 +231,32 @@ app.post("/register", async function (req, res) {
 app.post("/compose", function (req, res) {
   const heading = req.body.heading;
   const content = req.body.content;
+  const curUserId = req.user.id ;
+  const curUserNname = req.user.nickname ;
   const newUser = new Post({
     title: heading,
     post: content,
-    name: req.user.nickname 
+    name: curUserNname,
+    UserId: curUserId
   }) ;
-  newUser.save(function(err){
+  newUser.save(function(err, result){
     if(err){
       console.log(err) ;
     }else{
       console.log('post added successfully') ;
-      res.redirect('/main') ;
+      const curPostId = result.id ;
+      User.findByIdAndUpdate(curUserId, {$push:{post:curPostId}} , function(err){
+        if(err){
+          console.log(err) ;
+        }else{
+          res.redirect('/main') ;
+        }
+      }) ;
     }
   });
+  
+
+  // User.findByIdAndUpdate(curUser, {$push:{post:{}}})
 });
 
 app.post('/comment/:currentId', function(req, res){

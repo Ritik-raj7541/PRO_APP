@@ -21,7 +21,11 @@ const userSchema = new mongoose.Schema({
       },
       bio:{ 
        type:String
-      }
+      },
+      post:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Userpost'
+      }]
     });
 
     userSchema.plugin(passportLocalMongoose) ;

@@ -8,8 +8,12 @@ const postSchema = new mongoose.Schema({
       post: {
             type:String,
       },
-      name: {
-            type:String,
+      name:{
+            type:String
+      },
+      UserId: {
+            type:mongoose.Schema.Types.ObjectId, 
+            ref:'User'
       },
       like: [{
             type:mongoose.Schema.Types.ObjectId, 
