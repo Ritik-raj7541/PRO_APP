@@ -2,23 +2,15 @@ const express = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
-// var MongoDBStore = require('connect-mongodb-session')(session);
 const _ = require('lodash');
-
 const User = require('./modals/User') ;
 const Post = require('./modals/Post') ;
-// const bcrypt = require('bcrypt');
 const session = require('express-session') ;
 const passport = require('passport') ;
 const passportLocalMongoose = require('passport-local-mongoose') ;
 
 const app = express();
-// var store = new MongoDBStore({
-//   uri: 'mongodb://localhost:27017/proDB',
-//   collection: 'mySessions'
-// });
-// initializingPassport(passport) ;
+
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -58,10 +50,7 @@ app.get("/register", function (req, res) {
   res.render("register");
 });
 app.get("/main", function (req, res) {
-  // const currentUser = req.session.id ;
-  // console.log(currentUser) ;
   console.log('we are in main')
-  // console.log(req.isAuthenticated) ;
   if(req.isAuthenticated()){
     
     const curUser = req.user.nickname ;
@@ -76,13 +65,11 @@ app.get("/main", function (req, res) {
         }
       } 
     }) ;
-    // res.render('main') ;
+   
   }else{
     res.redirect('/login') ;
   }
-  
-  // res.render('main') ;
-  
+
 });
 app.get("/compose", function (req, res) {
   if(req.isAuthenticated()){
@@ -262,16 +249,12 @@ app.post("/compose", function (req, res) {
 
 app.post('/comment/:currentId', function(req, res){
     const commentbyUser = req.body.comment ;
-    
-    // console.log(currentPostid) ;
-    // console.log(commentbyUser) ;
      Post.findById(currentPostid, function(err, foundPost){
       if(err){
         console.log(err) ;
       }else{
         foundPost.comment.push({userName:req.user.nickname, essay:commentbyUser}) ;
         foundPost.save() ;
-        // console.log(foundPost.comment) ;
         res.redirect('/main') ;
       }
     }) ;
