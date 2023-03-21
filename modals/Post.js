@@ -15,6 +15,9 @@ const postSchema = new mongoose.Schema({
             type:mongoose.Schema.Types.ObjectId, 
             ref:'User'
       },
+      dateCreated:{
+            type:Date ,
+      },
       like: [{
             type:mongoose.Schema.Types.ObjectId, 
             ref:'User'

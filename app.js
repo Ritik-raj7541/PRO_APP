@@ -8,6 +8,10 @@ const Post = require('./modals/Post') ;
 const session = require('express-session') ;
 const passport = require('passport') ;
 
+//for dates
+const dateTime = require('node-datetime');
+
+
 const app = express();
 
 
@@ -53,17 +57,21 @@ app.get("/main", function (req, res) {
   if(req.isAuthenticated()){
     
     const curUser = req.user.nickname ;
-    Post.find({},function(err, foundPost){
+    Post.find({}).sort({dateCreated: -1}).exec((err, docs) => { 
       if(err){
         console.log(err) ;
       }else{
-        if(foundPost){
-         res.render("main" ,{postMaterial:foundPost, user:curUser});
+        if(docs){
+          console.log('found') ;
+          console.log(docs) ;
+          res.render("main",{postMaterial:docs, user:curUser}) ;
         }else{
+          console.log('not found') ;
+          console.log(docs) ;
           res.render("main", {postMaterial:[], user:curUser}) ;
         }
-      } 
-    }) ;
+      }
+     });
    
   }else{
     res.redirect('/login') ;
@@ -233,11 +241,14 @@ app.post("/compose", function (req, res) {
   const content = req.body.content;
   const curUserId = req.user.id ;
   const curUserNname = req.user.nickname ;
+  const dt = dateTime.create();
+  const today = dt.format('Y-m-d H:M:S');
   const newUser = new Post({
     title: heading,
     post: content,
     name: curUserNname,
-    UserId: curUserId
+    UserId: curUserId,
+    dateCreated: today
   }) ;
   newUser.save(function(err, result){
     if(err){

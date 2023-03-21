@@ -1,78 +1,27 @@
-   User.find({id:curUserId, reaction:{postId:l, lord:-1}}, function(err, docs){
-    if(err){
-      console.log(err) ;
-    }else{
-      if(docs){
-        Userpost.findByIdAndUpdate(l,{$inc:{like:1},$inc:{dislike:-1}}, function(err, success){
-          if(err){
-            console.log(err) ;
-          }else{
-            User.findByIdAndUpdate(curUserId, {$push:{reaction:{postId:req.body.liked, lord:1}}}, function(err, success){
-              if(err){
-                console.log(err) ;
-              }else{
-                console.log(success) ;
-              }
-            }) ;
-            console.log(success) ;
-          }
-        })
-      }else{
-        User.findByIdAndUpdate(curUserId, {$push:{reaction:{postId:req.body.liked, lord:1}}}, function(err, success){
-          if(err){
-            console.log(err) ;
-          }else{
-            Userpost.findByIdAndUpdate(l,{$inc:{like:1},$inc:{dislike:-1}}, function(err, success){
-              if(!err){
-                console.log(success) ;
-              }
-            })
-            console.log(success) ;
-          }
-        }) ; //adding if not present
-      }
-    }
-   }) ;
+<% for(var i=postMaterial.length-1;i>=0;--i){ %>
+
+  <h3>
+    <a href="/post/<%= postMaterial[i]._id %>"><%= postMaterial[i].title %></a>
+  </h3>
+  <% var a = postMaterial[i].post %> <%= a.substring(0,100) %> ...
+  <a href="/user/<%= postMaterial[i].UserId %>">
+    <h5><i>by <%= postMaterial[i].name %> </i></h5>
+  </a>
+  <p>
+
+    <form action="/like" method="post">
+      <button style="border: none;" type="submit" name="liked" value=<%=postMaterial[i]._id %>><i class="fa-solid fa-heart"></i></button>
+       <%= postMaterial[i].like.length %>
+    </form>
+    <form action="/dislike" method="post">
+       <button style="border: none;" type="submit" name="disliked" value=<%=postMaterial[i]._id %>><i class="fa-sharp fa-solid fa-heart-crack"></i></button>
+       <%= postMaterial[i].dislike.length %> 
+    </form>
+    <a href="/comment/<%= postMaterial[i]._id %>"><i class="fa-solid fa-comment mx-2"></i></a>
+
+  </p>
   
-
-//    --------------------------------------
-
-const l = req.body.disliked ;
-User.find({id:curUserId, reaction:{postId:l, lord:1}}, function(err, docs){
- if(err){
-   console.log(err) ;
- }else{
-   if(docs){
-     Userpost.findByIdAndUpdate(l,{$inc:{like:-1},$inc:{dislike:1}}, function(err, success){
-       if(err){
-         console.log(err) ;
-       }else{
-         console.log(success) ;
-         User.findByIdAndUpdate(curUserId, {$push:{reaction:{postId:req.body.disliked, lord:-1}}}, function(err, success){
-           if(err){
-             console.log(err) ;
-           }else{
-             console.log(success) ;
-           }
-         }) ; 
-       }
-     })
-   }else{
-     User.findByIdAndUpdate(curUserId, {$push:{reaction:{postId:req.body.disliked, lord:-1}}}, function(err, success){
-       if(err){
-         console.log(err) ;
-       }else{
-         Userpost.findByIdAndUpdate(l,{$inc:{like:-1},$inc:{dislike:1}}, function(err, success){
-           if(!err){
-             console.log(success) ;
-           }
-         })
-         console.log(success) ;
-       }
-     }) ; 
-   }
- }
-}) ;
-
-
-
+  
+  
+  <hr />
+  <% } %>
