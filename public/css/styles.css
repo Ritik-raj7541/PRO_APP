@@ -1,10 +1,10 @@
 hr
 {
   /* margin-left: 40px auto 40px auto ; */
-  width: 5%;
+  width: 30%;
   border:10px dotted rgb(51, 49, 49) ;
   border-bottom: none ;
-  text-align: center;
+  margin: auto;
 }
 a{
   text-decoration: none;
