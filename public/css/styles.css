@@ -3,12 +3,12 @@
     margin: 0;
     padding: 0;
     font-family: 'poppins',sans-serif;
-    color: aliceblue;
+    /* color: aliceblue; */
 }
 
 .centered {
   position: fixed;
-  top: 25%;
+  top: 15%;
   left: 35%;
 }
 
@@ -26,8 +26,9 @@ section{
 }
 .form-box{
     position: relative;
-    width: 400px;
-    height: 450px;
+    /* width: 400px;
+    height: 450px; */
+    padding: 25px;
     background: transparent;
     border: 2px solid rgba(255,255,255,0.5);
     border-radius: 20px;
@@ -49,28 +50,34 @@ h2{
     border-bottom: 2px solid #fff;
 }
 .inputbox label{
+    
     position: absolute;
-    top: 50%;
-    left: 5px;
+    /* top: 50%;
+    left: 5px; */
+    margin: 22px;
+    /* padding: 10px ; */
     transform: translateY(-50%);
     color: #fff;
     font-size: 1em;
     pointer-events: none;
     transition: .5s;
+    /* border: 2px solid red; */
 }
 input:focus ~ label,
 input:valid ~ label{
 top: -5px;
 }
 .inputbox input {
-    width: 100%;
-    height: 50px;
+    /* width: 100%;
+    height: 50px;  */
     background: transparent;
+    /* border: 2px solid black;  */
     border: none;
     outline: none;
     font-size: 1em;
-    padding:0 35px 0 5px;
-    color: #fff;
+    /* padding:0 35px 0 5px; */
+    padding: 12px;
+    /* color: #fff; */
 }
 .inputbox ion-icon{
     position: absolute;
@@ -136,4 +143,23 @@ hr
 a{
   text-decoration: none;
   color: white;
+}
+
+/* post design */
+.box{
+    border: 2px solid wheat;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 25px;
+    backdrop-filter: blur(5px);
+}
+.reaction{
+    /* border: 2px solid black; */
+    display: flex;
+    
+}
+.react{
+    font-style: none;
+    margin: 12px;
+    /* border: 2px solid black; */
 }
