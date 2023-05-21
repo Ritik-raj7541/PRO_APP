@@ -1,73 +1,75 @@
 <%- include('partials/header'); -%>
 
-<div class=" centered">
- <div class="form-box">
-  <div class="form-value">
-
-   
-  <h2>Register</h2>
+<div class="container">
+  <h1>Register</h1>
   <form action="/register" method="post">
-    <div class=" inputbox">
-      <label for="staticEmail" >Email</label>
+    <div class="mb-3 row">
+      <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+      <div class="col-sm-10">
         <input
           type="email"
           class="form-control-plaintext"
           id="staticEmail"
-          placeholder=""
+          placeholder="enter your mail"
           name="username"
           required
         />
+      </div>
     </div>
     <!-- password -->
-    <div class="inputbox">
-      <label for="inputPassword" 
+    <div class="mb-3 row">
+      <label for="inputPassword" class="col-sm-2 col-form-label"
         >Password</label
       >
+      <div class="col-sm-10">
         <input
           type="password"
           class="form-control"
           id="inputPassword"
           name="password"
         />
+      </div>
     </div>
     <!-- area1 -->
-    <div class="inputbox">
+    <div class="mb-3">
       <label for="exampleFormControlTextarea1" class="form-label"
-        >Full Name</label>
-      <input
+        >Full Name</label
+      >
+      <textarea
         class="form-control"
         id="exampleFormControlTextarea1"
         rows="1"
         name="fullname"
-      ></input>
+      ></textarea>
     </div>
     <!-- area2 -->
-    <div class="inputbox">
+    <div class="mb-3">
       <label for="exampleFormControlTextarea1" class="form-label"
-        >Nick Name</label>
-      <input
+        >Nick Name</label
+      >
+      <textarea
         class="form-control"
         id="exampleFormControlTextarea1"
         rows="1"
         name="nickname"
-      ></input>
+      ></textarea>
     </div>
     <!-- area3 -->
-    <div class="inputbox">
+    <div class="mb-3">
       <label for="exampleFormControlTextarea1" class="form-label">Bio</label>
-      <input
+      <textarea
         class="form-control"
         id="exampleFormControlTextarea1"
         rows="1"
         name="bio"
-      ></input>
+      ></textarea>
     </div>
-    <button type="submit" class="buttonB">Register</button> 
+
+   
+    <button type="submit" class="btn btn-primary">Register</button>
+    
   </form>
-  <div class="register"><p> or have an account <a href="/login"> Login </a> </p> </div>
-  
- </div>
+  or have an account <a href="/login"> <button class="btn btn-dark">Login</button> </a>
 </div>
-</div> 
 
 <%- include('partials/footer'); -%>

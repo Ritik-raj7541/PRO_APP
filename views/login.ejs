@@ -1,6 +1,6 @@
 <%- include('partials/header'); -%>
 
-<!-- <div class="container">
+<div class="container">
       <h1>Login</h1>
      
  <form action="/login" method="post">
@@ -26,45 +26,5 @@
           
  </form>
  or <a href="/register"> <button class="btn btn-dark my-3">Sign Up</button> </a>
-</div> -->
-  <div class="centered">
-  <div class="form-box">
-    <div class="form-value">
-      <form action="/login" method="post">
-        <h2>Login</h2>
-        <div class="inputbox">
-          <ion-icon name="mail-outline"></ion-icon>
-          <input
-            type="email"
-            class="form-control-plaintext"
-            id="staticEmail"
-            placeholder=""
-            name="username"
-          />
-          <label for="">Email</label>
-        </div>
-        <div class="inputbox">
-          <ion-icon name="lock-closed-outline"></ion-icon>
-          <input
-            type="password"
-            class="form-control"
-            id="inputPassword"
-            name="password"
-          />
-          <label for="">Password</label>
-        </div>
-        <div class="forget">
-          <label for=""
-            ><input type="checkbox" />Remember Me
-            <a href="#">Forget Password</a></label
-          >
-        </div>
-        <button class="buttonB" type="submit">Log in</button>
-        <div class="register">
-          <p>Don't have a account <a href="/register">Register</a></p>
-        </div>
-      </form>
-    </div>
-  </div>
 </div>
 <%- include('partials/footer'); -%>
