@@ -49,7 +49,7 @@ app.get("/register", function (req, res) {
   res.render("register");
 });
 app.get("/main", function (req, res) {
-  console.log("we are in main");
+  // console.log("we are in main");
   if (req.isAuthenticated()) {
     const curUser = req.user.nickname;
     Post.find({})
@@ -120,6 +120,11 @@ app.get("/comment/:commentId", function (req, res) {
     }
   });
 });
+
+app.get('/myprofile', function(req, res)
+{
+  res.render('myprofile') ;
+})
 
 //post request
 
